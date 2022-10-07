@@ -201,5 +201,66 @@ Necesitamos el hessiano o la matriz de las segundas derivadas que es:
 ## Algoritmo de Newton
 
 ``` python
-def 
+def newton_generalization(vector_x, epsilon1, epsilon2,  string_symbols, f):
+    '''
+	    vector_x -> es el vector de x en un punto inicial
+        epsilon1 -> tolerancia de la funcion de la iteración pasada
+        epsilon2 -> tolerancia en el valor del gradiente
+        string_symbols -> the letters that we are using in our function.
+        
+        Es la generalización del algoritmo de Newton-Raphson para N dimensiónes.
+    '''
+    
+    gradient = lambda f, v: Matrix([f]).jacobian(v)
+    v = list(symbols(string_symbols))
+    #v = list(ordered(f.free_symbols))
+    gradiente = gradient(f, v)
+   
+    assert len(gradiente) == len(vector_x),  'vector_x and gradient have different sizes, you should check either your symbols_string or vector_x'
+   
+    hessiano = hessian(f, v)
+    hessiano_inverso = hessiano.inv()
+    evaluar = dict(zip(v, vector_x))
+    f_valued_at_points = 0.0
+    f_valued_at_points = f.evalf(subs=evaluar)
+    
+    S = -MatMul(gradiente, hessiano_inverso)    
+    s_evaluada = []
+    
+    for i in range(len(vector_x)):
+        s_evaluada.append(S[i].evalf(subs=evaluar))
+        
+    for i in range(0, 10000):
+        evaluar = dict(zip(v, vector_x))
+        # Sacar f(x) y guardar f(x-1)
+        f_valued_last_point = f_valued_at_points
+        f_valued_at_point = f.evalf(subs=evaluar)
+        
+        # Sacar el vector de búsqueda
+        s_evaluada = []
+        for j in range(len(vector_x)):
+            s_evaluada.append(S[j].evalf(subs=evaluar))
+        
+                
+        for j in range(len(vector_x)):
+            vector_x[j] = vector_x[j] + s_evaluada[j]
+        
+        # Evaluar y sacar la norma de un gradiente
+        gradiente_evaluado = []
+        norma = 0.0
+        
+        for j in range(len(gradiente)):
+            gradiente_evaluado.append(gradiente[j].evalf(subs=evaluar))
+        
+        for j in range(len(gradiente_evaluado)):
+            norma = norma + gradiente_evaluado[j]**2
+        
+        norma = sqrt(norma)
+        
+        # Condición de paro
+        if norma < epsilon2: # TODO: falta la segunda de tener la anterior.
+            print("Solution found at", vector_x, "in iteration:", i,"with the value of the function of: ", f.evalf(subs=evaluar))
+            return
+    
+    return
 ```

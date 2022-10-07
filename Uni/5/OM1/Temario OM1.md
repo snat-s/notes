@@ -2,4 +2,4 @@
 
 1. Conceptos Básicos
 2. Cálculo Numérico de Derivadas
-3. 
+3. Métodos de búsqueda y optimización
