@@ -39,3 +39,10 @@ Es el conjunto de **valores permitidos** para un atributo.
 - Clave candidata
 - Clave primaria
 
+# Ejercicio de matriz de relación
+
+| | Plato | Categoría | Receta|
+|--|-----|------------|--------|
+|Plato|X|Pertenece -> m:1| Se hace -> 1:1|
+|Categoría|Tiene -> 1:m|X||
+|Receta|Conocer -> 1:1||X|

@@ -264,3 +264,10 @@ def newton_generalization(vector_x, epsilon1, epsilon2,  string_symbols, f):
     
     return
 ```
+
+## Algoritmo de Levenberg-Marquardt 
+
+Es muy parecido al de Newton. Pero la mayor diferencia es que no necesitas el Hessiano inverso, en vez de obtener un Hessiano inverso necesitas sacar: 
+
+$$S_i = -[H + \lambda I]^{-1} \nabla f(x_i)$$
+Pero de ahí en más el algoritmo es lo mismo.
