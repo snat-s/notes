@@ -177,6 +177,15 @@ $$E(x) = \lambda $$
 - Varianza:
 $$Var(X) = \lambda$$
 ## Distribución geométrica
+Tiene parámetro $p$. Y se representa: $X\sim Geo(p)$ 
+Su fmp:
+$$f(x) = p(1-p)^{x-1};x=1,2,3, ...$$
+Su valor esperado es:
+$$E(X) = \frac{1}{p}$$
+Su varianza:
+$$Var(X) = \frac{1-p}{p^2}$$
+Su función generadora de momentos es:
+$$m_X(t) = \frac{pe^t}{1-(1-p)e^t}$$
 
 # Distribuciónes continuas de probabilidad
 ## Variables continuas de probabilidad
