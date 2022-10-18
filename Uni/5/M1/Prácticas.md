@@ -301,9 +301,7 @@ Son ocho leds, cuatro separados.
 ``` asm
 ```
 
-## Práctica 5
-No existe la práctica 5.
-### Práctica N
+## Práctica 5 (Teclado Matricial)
 #### Teclados Matriciales
 - Son completamente escalables.
 - Se basan en filas y columnas.
@@ -311,6 +309,293 @@ No existe la práctica 5.
 ```asmatmel
 ldi ddra, 0b0000_1111
 ldi portA, 0b1111_1111
+```
+### Teclado para Proteus
+
+La idea para los teclados es sencilla: 
+- Tienes un mega switch 
+- Tienes funciónes en cada uno de las comparaciónes que hacen lo que quieres.
+
+```asmatmel
+;******************************************************
+; Teclado matricial
+;
+; Fecha: 2022-10-04
+; Autor: Santiago Pedroza Díaz
+;******************************************************
+
+.include "m16adef.inc"     
+   
+;******************************************************
+;Registros (aquí pueden definirse)
+;.def temporal=r19
+.def izquierda=r17
+.def derecha=r18
+.def salida=r19
+;Palabras claves (aquí pueden definirse)
+;.equ LCD_DAT=DDRC
+;******************************************************
+
+.org 0x0000
+;Comienza el vector de interrupciones.
+jmp RESET ; Reset Handler
+jmp EXT_INT0 ; IRQ0 Handler
+jmp EXT_INT1 ; IRQ1 Handler
+jmp TIM2_COMP ; Timer2 Compare Handler
+jmp TIM2_OVF ; Timer2 Overflow Handler
+jmp TIM1_CAPT ; Timer1 Capture Handler
+jmp TIM1_COMPA ; Timer1 CompareA Handler
+jmp TIM1_COMPB ; Timer1 CompareB Handler
+jmp TIM1_OVF ; Timer1 Overflow Handler
+jmp TIM0_OVF ; Timer0 Overflow Handler
+jmp SPI_STC ; SPI Transfer Complete Handler
+jmp USART_RXC ; USART RX Complete Handler
+jmp USART_UDRE ; UDR Empty Handler
+jmp USART_TXC ; USART TX Complete Handler
+jmp ADC_COMP ; ADC Conversion Complete Handler
+jmp EE_RDY ; EEPROM Ready Handler
+jmp ANA_COMP ; Analog Comparator Handler
+jmp TWSI ; Two-wire Serial Interface Handler
+jmp EXT_INT2 ; IRQ2 Handler
+jmp TIM0_COMP ; Timer0 Compare Handler
+jmp SPM_RDY ; Store Program Memory Ready Handler
+; Termina el vector de interrupciones.
+
+;******************************************************
+;Aquí comenzará el programa
+;******************************************************
+Reset:
+;Primero inicializamos el stack pointer...
+ldi r16, high(RAMEND)
+out SPH, r16
+ldi r16, low(RAMEND)
+out SPL, r16 
+
+
+;******************************************************
+;No olvides configurar al inicio los puertos que utilizarás
+;También debes configurar si habrá o no pull ups en las entradas
+;Para las salidas deberás indicar cuál es la salida inicial
+;Los registros que vayas a utilizar inicializalos si es necesario
+;******************************************************
+
+ldi r16, 0b0000_1111
+out DDRA, r16
+ldi r16, 0b1111_1111
+out DDRD, r16
+ldi r16, 0
+out PORTD, r16
+
+;; Iniciación global
+ldi r17, 0
+ldi r18, 0
+
+main:
+    nop
+	nop
+	nop
+	nop
+	ldi r16, 0b1111_1111
+	out PORTA, r16
+	nop
+	nop
+	;;ldi r16, 0b1111_0111 ;; para el físico
+	ldi  r16, 0b1111_1110
+	out PORTA, r16
+	nop
+	nop
+	sbis PINA, 6
+	rjmp cero
+	
+	;; Comparaciones para la fila del cero
+	;;sbis PINA, 5
+	;;rjmp CERO
+
+	;; Comparaciones para la fila del 7, 8, 9
+	ldi r16, 0b1111_0111 ;; para el físico
+	out PORTA, r16
+	nop
+	nop
+	sbis PINA, 7
+	rjmp siete
+	sbis PINA, 6
+	rjmp ocho
+	sbis PINA, 5
+	rjmp nueve
+
+	;; Comparaciones para 4, 5, 6
+	ldi r16, 0b1111_1011 ;; para el físico
+	out PORTA, r16
+	nop
+	nop
+	sbis PINA, 7
+	rjmp cuatro
+	sbis PINA, 6
+	rjmp cinco
+	sbis PINA, 5
+	rjmp seis
+
+	;; Comparaciones para 1, 2, 3
+	ldi r16, 0b1111_1101 ;; para el físico
+	out PORTA, r16
+	nop
+	nop
+	sbis PINA, 7
+	rjmp uno
+	sbis PINA, 6
+	rjmp dos
+	sbis PINA, 5
+	rjmp tres
+
+rjmp main
+
+CERO:
+	rcall RETARDO
+	traba_0:
+		sbis PINA, 6
+		rjmp traba_0
+	rcall RETARDO
+rjmp main
+UNO:
+	rcall RETARDO
+	traba_1:
+		sbis PINA, 7
+		rjmp traba_1
+	rcall RETARDO
+rjmp main
+
+DOS:
+	rcall RETARDO
+	traba_2:
+		sbis PINA, 6
+		rjmp traba_2
+	rcall RETARDO
+rjmp main
+
+TRES:
+	rcall RETARDO
+	traba_3:
+		sbis PINA, 5
+		rjmp traba_3
+	rcall RETARDO
+rjmp main
+CUATRO:
+	rcall RETARDO
+	traba_4:
+		sbis PINA, 7
+		rjmp traba_4
+	rcall RETARDO
+rjmp main
+
+CINCO:
+	rcall RETARDO
+	traba_5:
+		sbis PINA, 6
+		rjmp traba_5
+	rcall RETARDO
+rjmp main
+
+SEIS:
+	rcall RETARDO
+	traba_6:
+		sbis PINA, 5
+		rjmp traba_6
+	rcall RETARDO
+rjmp main
+
+SIETE:
+	rcall RETARDO
+	traba_7:
+		sbis PINA, 7
+		rjmp traba_7
+	rcall RETARDO
+rjmp main
+
+OCHO:
+	rcall RETARDO
+	traba_8:
+		sbis PINA, 6
+		rjmp traba_8
+	rcall RETARDO
+rjmp main
+
+NUEVE:
+	rcall RETARDO
+	traba_9:
+		sbis PINA, 5
+		rjmp traba_9
+	rcall RETARDO
+rjmp main
+
+
+RETARDO:
+; ============================= 
+;    delay loop generator 
+;     50000 cycles:
+; ----------------------------- 
+; delaying 49995 cycles:
+          ldi  R22, $65
+WGLOOP0:  ldi  R23, $A4
+WGLOOP1:  dec  R23
+          brne WGLOOP1
+          dec  R22
+          brne WGLOOP0
+; ----------------------------- 
+; delaying 3 cycles:
+          ldi  R22, $01
+WGLOOP2:  dec  R22
+          brne WGLOOP2
+; ----------------------------- 
+; delaying 2 cycles:
+          nop
+          nop
+; ============================= 
+
+
+
+;******************************************************
+;Aquí están las rutinas para el manejo de las interrupciones concretas
+;******************************************************
+EXT_INT0: ; IRQ0 Handler
+reti
+EXT_INT1: 
+reti ; IRQ1 Handler
+TIM2_COMP: 
+reti ; Timer2 Compare Handler
+TIM2_OVF: 
+reti ; Timer2 Overflow Handler
+TIM1_CAPT: 
+reti ; Timer1 Capture Handler
+TIM1_COMPA: 
+reti ; Timer1 CompareA Handler
+TIM1_COMPB: 
+reti ; Timer1 CompareB Handler
+TIM1_OVF: 
+reti ; Timer1 Overflow Handler
+TIM0_OVF: 
+reti ; Timer0 Overflow Handler
+SPI_STC: 
+reti ; SPI Transfer Complete Handler
+USART_RXC: 
+reti ; USART RX Complete Handler
+USART_UDRE: 
+reti ; UDR Empty Handler
+USART_TXC: 
+reti ; USART TX Complete Handler
+ADC_COMP: 
+reti ; ADC Conversion Complete Handler
+EE_RDY: 
+reti ; EEPROM Ready Handler
+ANA_COMP: 
+reti ; Analog Comparator Handler
+TWSI: 
+reti ; Two-wire Serial Interface Handler
+EXT_INT2: 
+reti ; IRQ2 Handler
+TIM0_COMP: 
+reti
+SPM_RDY: 
+reti ; Store Program Memory Ready Handler
 ```
 ## Práctica 6
 
@@ -369,9 +654,9 @@ Son las banderas de interrupción que se generan para saber si existe. *Primero 
 |-----|-------|------|-------|-------|-------|-------|-------|
 |INTF1|INTF0  |INTF2 | -     | -     | -     | -     |-      |
 
-## Cosas importantes
+## Aprendido
 ```asmatmel
-sei ;; instrucciuón que inicializa las interrupciones externas.
+sei ;; instrucción que inicializa las interrupciones externas.
 ldi r16, 0b0000_00_11
 out MCUCR, r16
 ldi r16, 0b111_0_0000
