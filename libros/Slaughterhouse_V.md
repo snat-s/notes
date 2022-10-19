@@ -2,6 +2,7 @@
 title: "Slaughterhouse V: Lidiando con trauma de forma post-modernista"
 author: "Santiago Pedroza Díaz"
 tags: [libros] 
+date: 2022-10-05
 draft: true 
 ---
 
