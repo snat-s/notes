@@ -153,6 +153,7 @@ $$\binom{n}{r} = \frac{n!}{r!(n-r)!}$$
 2. $\binom{n}{1} = \binom{n}{n-1} = n$
 
 ## Distribución Binomial
+
 - $n$ ensayos Bernoulli independientes.
 - La probabilidad de éxito $p$ se mantiene constante a lo largo.
 - Tenemos una variable de interés $X$, la cual cuenta el número de éxitos en los $n$ ensayos.
@@ -167,6 +168,27 @@ $$E(X) = np$$
 Su varianza es:
 
 $$Var(X) = np(1-p)$$
+
+Sacar rápidamente las distribuciónes. 
+
+```python
+from math import comb
+
+n = 20
+p = 0.45
+proba = 0.0
+proba_caso = 0.0
+
+for i in range(1, n+1):
+    #    print(i)
+    combinacion = comb(n, i)
+    proba_caso = combinacion*(p**i)*((1-p)**(n-i)) 
+    proba += proba_caso
+    print(i, proba_caso , proba_caso*100)
+
+
+print(proba)
+```
 
 ## Distribución Hipergeométrica
 
