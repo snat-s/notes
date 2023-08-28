@@ -42,13 +42,13 @@ I still think that this has not happened to me. Every time that I venture
 into a part of engineering or computer science I find amazing communities with
 people that are amazing and everyone is really welcoming.
 
-This is a part that I still am in awe. The amount of people that can colaborate 
-on gigantic proyects just because they have the same interest blows my head.
+This is a part that I still am in awe of. The amount of people that can collaborate 
+on gigantic projects just because they have the same interest blows my head.
 
-And this makes it a bit more difficult on how to decide to which projects I
-should invest my time.
+And this makes it a bit more difficult to decide which projects I should invest
+my time in.
 
-So feeling really confused and not sure on what to do. It was a question that I
+So feeling really confused and not sure what to do. It was a question that I
 had in my head for roughly six months and I wrote a bit before about it.  But I
 finally got some great advice about how to tackle this.
 
@@ -56,7 +56,7 @@ finally got some great advice about how to tackle this.
 
 So I was chatting with my ex cohost in my past internship. And I
 voiced my thoughts on the overwhelming amount of amazing stuff that there
-currently is everywhere and how it was to much. So here I voice what
+currently is everywhere and how it was too much. So here I voice what
 he told me:
 
 > Just finish stuff
@@ -70,7 +70,7 @@ consequences.
 
 1. I have evidence of what I have done. 
 1. I can understand the field better.
-1. I can see if like or not a subject.
+1. I can see if I like or not a subject.
 
 The last one is the most important. It solves a lot of the issues that I was
 having. Overall, it is great advice.
