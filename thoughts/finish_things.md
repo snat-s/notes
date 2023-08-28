@@ -9,7 +9,7 @@ but get new knowledge for new areas.
 
 One of the problems that I get as a programmer is that I get really excited
 about new technology. This is great if you want to research something and you
-can get in a weeks time the basics. And this means I start a lot of stuff. I
+can get the basics in a week. This means I start a lot of stuff. I
 like to experiment.
 
 ## In search of the shiny object
@@ -21,16 +21,16 @@ as of this moment I think I have ventured into a lot of different parts.
 Knowing a bit of frontend, a bit of backend, some AI, some cyber security among
 other things has given me a lot of joy. 
 
-This has been really helpful because knowing a bit about a lot has made me
-understand what I like and what I do not.
+This has been really helpful because I can explore what I like and what I do
+not.
 
 But, here is the problem, with this much choice and knowing all of this
 tid-bits of information you get a lot of ideas for a lot of projects but I tend
 to not do them. 
 
-Thir happens because I tend to have this happen to me: "How do they do that?".
+This happens because I tend to have this happen to me: "How do they do that?".
 "If I could implement it. Where would I start?" Almost all of this come from an
-inherent curisoity, to build new things.
+inherent curiosity, to build new things.
 
 ## The obvious problem
 
@@ -66,7 +66,7 @@ something for real if I do not invest enough time. I was just doing the simple
 things and then keep moving on in pursuit of a newer and shinier object.
 
 So, just finishing the projects I start is a great idea. This advice has several
-consecuences. 
+consequences. 
 
 1. I have evidence of what I have done. 
 1. I can understand the field better.
